@@ -144,7 +144,6 @@ mp
 
 #load the ggmap package
 devtools::install_github("dkahle/ggmap")
-
 #load libraries 
 library(stringr)
 install.packages("viridis")
