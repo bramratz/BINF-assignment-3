@@ -128,19 +128,9 @@ map()
 #using lat and lon locate where individuals are found on the map
 DaphniaC_map <- points(DaphniaC_df2$lon, DaphniaC_df2$lat, col = "red", pch = 19, xlab = "Longitude", ylab = "Latitude")
 
-
 #zoom in
 DaphniaC_map_canada <- plot(DaphniaC_df2$lon, DaphniaC_df2$lat, xlim = c(-160, -25), ylim = c(20, 90), col = "red", pch = 19, xlab = "Longitude", ylab = "Latitude")
 map(add = T)
-
-#try again to create base world map
-mp <- NULL
-mapworld <- borders("world", colour = "grey50", fill = "grey50")
-mp <- ggplot() + mapworld
-
-#layer species on top
-mp <- mp + geom_point(aes(x = DaphniaC_df2$lon, y = DaphniaC_df2$lat), color = "blue", size = 3)
-mp
 
 #load the ggmap package
 devtools::install_github("dkahle/ggmap")
@@ -149,8 +139,14 @@ library(stringr)
 install.packages("viridis")
 library(viridis)
 
+#creating map
+mp<-NULL
+mapWorld<-borders("world", colour="gray50", fill="gray50")
+mp<-ggplot()+mapWorld
+mp
+
 #add data points
-gg1 +
+mp+
   geom_point(data = DaphniaC_df2, aes(lon, lat), color = "red", size = 5) +
   ggtitle("Species Distribution") +
   geom_text(data = DaphniaC_df2, aes(lon, lat, label = species_name))
